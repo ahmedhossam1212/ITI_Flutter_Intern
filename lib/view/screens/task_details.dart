@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iti_flutter_intern/data/cubit/tasks_cubite.dart';
 import 'package:iti_flutter_intern/data/state/tasks_state.dart';
-import 'package:iti_flutter_intern/view/screens/task_details.dart';
 
-class TaskView extends StatelessWidget {
-  const TaskView({super.key});
-
+class TaskDetails extends StatelessWidget {
+  const TaskDetails({
+    super.key,
+    required this.index,
+  });
+  final int index;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("TASKS"),
+          title: Text("TASKS DETAILS"),
         ),
         body: BlocProvider(
           create: (context) => TasksCubit(),
@@ -27,21 +29,17 @@ class TaskView extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     )
                   : state is TasksSuccessState
-                      ? ListView.builder(
-                          itemCount: context.watch<TasksCubit>().tasks.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            TaskDetails(index: index),
-                                      ));
-                                },
-                                child: Text(
-                                    "${context.watch<TasksCubit>().tasks[index].title}"));
-                          },
+                      ? Column(
+                          children: [
+                            Text(
+                                "${context.watch<TasksCubit>().tasks[index].title}"),
+                            Text(
+                                "${context.watch<TasksCubit>().tasks[index].id}"),
+                            Text(
+                                "${context.watch<TasksCubit>().tasks[index].userId}"),
+                            Text(
+                                "${context.watch<TasksCubit>().tasks[index].completed}"),
+                          ],
                         )
                       : const Center(
                           child: Text("Error"),
