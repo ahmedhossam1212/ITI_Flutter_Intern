@@ -13,7 +13,7 @@ class TaskDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("TASKS DETAILS"),
+          title: Text("TASK $index DETAILS  "),
         ),
         body: BlocProvider(
           create: (context) => TasksCubit(),
