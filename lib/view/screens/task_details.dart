@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iti_flutter_intern/data/cubit/tasks_cubite.dart';
-import 'package:iti_flutter_intern/data/state/tasks_state.dart';
+import 'package:iti_flutter_intern/data/cubit/tasks_cubit/tasks_cubite.dart';
+import 'package:iti_flutter_intern/data/state/tasks_state/tasks_state.dart';
 
 class TaskDetails extends StatelessWidget {
   const TaskDetails({
@@ -19,9 +19,7 @@ class TaskDetails extends StatelessWidget {
           create: (context) => TasksCubit(),
           child: BlocConsumer<TasksCubit, TasksState>(
             listener: (context, state) {
-              if (state is TasksLoadingState) {
-                print("Loading");
-              }
+              if (state is TasksLoadingState) {}
             },
             builder: (context, state) {
               return state is TasksLoadingState
