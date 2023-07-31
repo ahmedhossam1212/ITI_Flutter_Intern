@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iti_flutter_intern/data/cubit/firerbase_cubit/user_cubit.dart';
 import 'package:iti_flutter_intern/data/state/firebase_state/user_state.dart';
 import 'package:iti_flutter_intern/view/screens/profile_screen.dart';
-import 'package:iti_flutter_intern/view/screens/register_Screen.dart';
 import 'package:iti_flutter_intern/view/widgets/form_field.dart';
+import '../../data/cubit/firerbase_cubit/user_cubit.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  RegisterScreen({super.key});
 
   final formKey = GlobalKey<FormState>();
   final TextEditingController passController = TextEditingController();
@@ -19,18 +18,14 @@ class LoginScreen extends StatelessWidget {
       create: (context) => UserCubit(),
       child: BlocConsumer<UserCubit, UserState>(
         listener: (context, state) {
-          if (state is UserLoginSuccessState) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ProfileScreen(),
-                ));
+          if (state is UserSuccesState) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ProfileScreen()));
           }
         },
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.white,
               elevation: 0.0,
             ),
             body: SingleChildScrollView(
@@ -81,13 +76,13 @@ class LoginScreen extends StatelessWidget {
                       color: Colors.blue,
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
-                          UserCubit.get(context).userLogin(
+                          UserCubit.get(context).userRegister(
                               email: emailController.text,
                               password: passController.text);
                         }
                       },
                       child: const Text(
-                        "LogIn",
+                        "register",
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
@@ -115,23 +110,6 @@ class LoginScreen extends StatelessWidget {
                           height: 20,
                         ),
                       ],
-                    ),
-                    MaterialButton(
-                      height: 50,
-                      minWidth: double.infinity,
-                      elevation: 10.0,
-                      color: Colors.grey,
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => RegisterScreen(),
-                            ));
-                      },
-                      child: const Text(
-                        "No Account? Sign Up",
-                        style: TextStyle(fontSize: 20, color: Colors.black45),
-                      ),
                     ),
                   ]),
                 ),

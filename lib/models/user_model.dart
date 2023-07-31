@@ -1,20 +1,16 @@
 class UserModel {
-  String? name;
   String? email;
-
+  String? uId;
   UserModel({
-    this.name,
     this.email,
+    String? uId,
   });
   UserModel.fromJason(Map<String, dynamic> json) {
-    name = json['name'];
     email = json['email'];
+    uId = json['uId'];
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'email': email,
-    };
+    return {'email': email, 'uId': uId};
   }
 }
